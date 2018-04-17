@@ -87,7 +87,7 @@ public class TTTGame : MonoBehaviour {
         string moveToSet = "";
         ButtonController toControl = boardController.board[i_buttonIndex];
 
-        if (toControl.occupation == Player.NONE)
+        if (!toControl.isOccupied)
         {
             toControl.SetOccupation(currentPlayer);
             turnOver = true;

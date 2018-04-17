@@ -12,37 +12,37 @@ public class ButtonController : MonoBehaviour {
 
     #region Public Fields
 
-    public Player occupation
+    public bool isOccupied
     {
         get
         {
-            if(buttonText.text.Equals("X"))
-            {
-                return Player.PlayerOne;
-            }
-            else if(buttonText.Equals("O"))
-            {
-                return Player.PlayerTwo;
-            }
-            else
-            {
-                return Player.NONE;
-            }
+            return buttonText.text.Length != 0;
         }
     }
+    public Player occupation = Player.NONE;
 
     #endregion
 
     #region Unity Lifecycle
     private void Awake()
     {
-        Transform[] children = gameObject.GetComponentsInChildren<Transform>();
-
-        buttonText = children[1].GetComponent<Text>();
-        
+        SetChildTextReference();       
     }
 
     #endregion
+
+    #region Private Interface
+
+    private void SetChildTextReference()
+    {
+        Transform[] children = gameObject.GetComponentsInChildren<Transform>();
+
+        buttonText = children[1].GetComponent<Text>();
+    }
+
+    #endregion
+
+    #region Public Interface
 
     public void SetOccupation(Player currentPlayer)
     {
@@ -50,9 +50,11 @@ public class ButtonController : MonoBehaviour {
         {
             case Player.PlayerOne:
                 buttonText.text = "X";
+                occupation = currentPlayer;
                 break;
             case Player.PlayerTwo:
                 buttonText.text = "O";
+                occupation = currentPlayer;
                 break;
             default:
                 buttonText.text = "NONE";
@@ -60,4 +62,6 @@ public class ButtonController : MonoBehaviour {
         }
 
     }
+
+    #endregion
 }

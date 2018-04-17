@@ -18,7 +18,7 @@ public class TTTGame : MonoBehaviour {
 
     #region Private Fields
 
-    private bool turnOver = false;
+    private bool gameRunning = true;
 
     #endregion
 
@@ -29,18 +29,8 @@ public class TTTGame : MonoBehaviour {
     // Use this for initialization
     void Start () {
         currentPlayer = Player.PlayerOne;
-        turnOver = false;
         boardController.SetTurnText(currentPlayer);
 	}
-
-    private void Update()
-    {
-        if(turnOver)
-        {
-            EndTurn();
-        }
-    }
-
 
     #endregion
 
@@ -52,50 +42,83 @@ public class TTTGame : MonoBehaviour {
 
     }
 
-    private Player WinCheck(Player toCheck)
+    private bool WinCheck(Player i_player)
     {
-        Player result = Player.NONE;
+        ButtonController[] boardCells = boardController.board;
 
-        return result;
+        if((boardCells[0].occupation == i_player && boardCells[1].occupation == i_player && boardCells[2].occupation == i_player) ||
+            (boardCells[3].occupation == i_player && boardCells[4].occupation == i_player && boardCells[5].occupation == i_player) ||
+            (boardCells[6].occupation == i_player && boardCells[7].occupation == i_player && boardCells[8].occupation == i_player) ||
+            (boardCells[0].occupation == i_player && boardCells[3].occupation == i_player && boardCells[6].occupation == i_player) ||
+            (boardCells[1].occupation == i_player && boardCells[4].occupation == i_player && boardCells[7].occupation == i_player) ||
+            (boardCells[2].occupation == i_player && boardCells[5].occupation == i_player && boardCells[8].occupation == i_player) ||
+            (boardCells[0].occupation == i_player && boardCells[4].occupation == i_player && boardCells[8].occupation == i_player) ||
+            (boardCells[2].occupation == i_player && boardCells[4].occupation == i_player && boardCells[6].occupation == i_player)
+            )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
 
     }
 
     private void EndTurn()
     {
-        switch (currentPlayer)
+        CheckForWin(currentPlayer);
+
+        if (gameRunning)
         {
-            case Player.PlayerOne:
-                currentPlayer = Player.PlayerTwo;
-                break;
-            case Player.PlayerTwo:
-                currentPlayer = Player.PlayerOne;
-                break;
+
+            switch (currentPlayer)
+            {
+                case Player.PlayerOne:
+                    currentPlayer = Player.PlayerTwo;
+                    break;
+                case Player.PlayerTwo:
+                    currentPlayer = Player.PlayerOne;
+                    break;
+            }
+
+            boardController.SetTurnText(currentPlayer);
         }
-
-        boardController.SetTurnText(currentPlayer);
-
-        turnOver = false;
     
+    }
+
+
+    private void CheckForWin(Player i_player)
+    {
+        if(WinCheck(i_player))
+        {
+            boardController.SetWinningText(i_player);
+            gameRunning = false;
+        }
+        
     }
 
     #endregion
 
     #region Public Interface
     
-    public void SetButtonState(int i_buttonIndex)
+    public void MakeMove(int i_buttonIndex)
     {
-        string moveToSet = "";
         ButtonController toControl = boardController.board[i_buttonIndex];
 
         if (!toControl.isOccupied)
         {
             toControl.SetOccupation(currentPlayer);
-            turnOver = true;
+            EndTurn();
         }
         else
         {
             Debug.Log("Square " + i_buttonIndex + " is occupied, invalid move");
         }
+        
+
         
     }
 

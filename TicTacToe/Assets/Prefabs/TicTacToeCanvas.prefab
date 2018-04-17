@@ -418,7 +418,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: N/A
+  m_Text: 
 --- !u!114 &114097064527959282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -459,7 +459,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: SetButtonState
+        m_MethodName: MakeMove
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -511,7 +511,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: SetButtonState
+        m_MethodName: MakeMove
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -563,7 +563,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: SetButtonState
+        m_MethodName: MakeMove
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -655,7 +655,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: N/A
+  m_Text: 
 --- !u!114 &114169441946757936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -688,7 +688,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: N/A
+  m_Text: 
 --- !u!114 &114177015217090862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -721,7 +721,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: N/A
+  m_Text: 
 --- !u!114 &114199270246645296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -760,6 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284985d9e6d62404fb94078292721dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupation: 2
 --- !u!114 &114239755159376276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -879,7 +880,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: N/A
+  m_Text: 
 --- !u!114 &114352992991699968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -912,7 +913,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: N/A
+  m_Text: 
 --- !u!114 &114362615634246470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -945,7 +946,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: N/A
+  m_Text: 
 --- !u!114 &114461816424998436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -986,7 +987,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: SetButtonState
+        m_MethodName: MakeMove
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1030,7 +1031,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: N/A
+  m_Text: 
 --- !u!114 &114485169984624330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1069,6 +1070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284985d9e6d62404fb94078292721dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupation: 2
 --- !u!114 &114487365216634956
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1080,6 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284985d9e6d62404fb94078292721dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupation: 2
 --- !u!114 &114509730319592820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1091,6 +1094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284985d9e6d62404fb94078292721dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupation: 2
 --- !u!114 &114595680592769928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1102,6 +1106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284985d9e6d62404fb94078292721dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupation: 2
 --- !u!114 &114596767037783004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1142,7 +1147,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: SetButtonState
+        m_MethodName: MakeMove
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1165,6 +1170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284985d9e6d62404fb94078292721dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupation: 2
 --- !u!114 &114615817772437142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1225,6 +1231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284985d9e6d62404fb94078292721dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupation: 2
 --- !u!114 &114700064130489148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1236,6 +1243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284985d9e6d62404fb94078292721dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupation: 2
 --- !u!114 &114711689720437104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1276,7 +1284,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: SetButtonState
+        m_MethodName: MakeMove
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1328,7 +1336,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: SetButtonState
+        m_MethodName: MakeMove
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1372,7 +1380,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: N/A
+  m_Text: 
 --- !u!114 &114827689336714914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1440,7 +1448,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: SetButtonState
+        m_MethodName: MakeMove
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1492,7 +1500,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: SetButtonState
+        m_MethodName: MakeMove
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1515,6 +1523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284985d9e6d62404fb94078292721dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupation: 2
 --- !u!114 &114959912341259218
 MonoBehaviour:
   m_ObjectHideFlags: 1

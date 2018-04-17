@@ -301,6 +301,51 @@ Prefab:
       propertyPath: m_Text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114834596816696082, guid: 3f190e6e76e191a4088fc99de83cc351,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 114719485302726086, guid: 3f190e6e76e191a4088fc99de83cc351,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 114107416060825284, guid: 3f190e6e76e191a4088fc99de83cc351,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 114596767037783004, guid: 3f190e6e76e191a4088fc99de83cc351,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 114872122577363472, guid: 3f190e6e76e191a4088fc99de83cc351,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 114461816424998436, guid: 3f190e6e76e191a4088fc99de83cc351,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 114711689720437104, guid: 3f190e6e76e191a4088fc99de83cc351,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114974606605672, guid: 3f190e6e76e191a4088fc99de83cc351,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 114097064527959282, guid: 3f190e6e76e191a4088fc99de83cc351,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeMove
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3f190e6e76e191a4088fc99de83cc351, type: 2}
   m_IsPrefabParent: 0

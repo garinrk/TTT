@@ -23,8 +23,7 @@ public class BoardController : MonoBehaviour {
         
     }
 
-    #endregion
-    
+    #endregion    
 
     #region Public Interface
 
@@ -44,6 +43,18 @@ public class BoardController : MonoBehaviour {
         else if(i_currentPlayer == Player.PlayerTwo)
         {
             turnText.text = Strings.InterfaceText.PLAYER_TWO_TURN;
+        }
+    }
+
+    public void SetWinningText(Player winner)
+    {
+        if(winner == Player.PlayerOne)
+        {
+            turnText.text = Strings.InterfaceText.PLAYER_ONE_WIN;
+        }
+        else if(winner == Player.PlayerTwo)
+        {
+            turnText.text = Strings.InterfaceText.PLAYER_TWO_WIN;
         }
     }
 

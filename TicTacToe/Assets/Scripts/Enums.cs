@@ -1,6 +1,6 @@
 ﻿public enum Player
 {
-    PlayerOne,
-    PlayerTwo,
+    Human,
+    Robot,
     NONE
 }

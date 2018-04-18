@@ -36,11 +36,11 @@ public class BoardController : MonoBehaviour {
 
     public void SetTurnText(Player i_currentPlayer)
     {
-        if(i_currentPlayer == Player.PlayerOne)
+        if(i_currentPlayer == Player.Human)
         {
             turnText.text = Strings.InterfaceText.PLAYER_ONE_TURN;
         }
-        else if(i_currentPlayer == Player.PlayerTwo)
+        else if(i_currentPlayer == Player.Robot)
         {
             turnText.text = Strings.InterfaceText.PLAYER_TWO_TURN;
         }
@@ -48,11 +48,11 @@ public class BoardController : MonoBehaviour {
 
     public void SetWinningText(Player winner)
     {
-        if(winner == Player.PlayerOne)
+        if(winner == Player.Human)
         {
             turnText.text = Strings.InterfaceText.PLAYER_ONE_WIN;
         }
-        else if(winner == Player.PlayerTwo)
+        else if(winner == Player.Robot)
         {
             turnText.text = Strings.InterfaceText.PLAYER_TWO_WIN;
         }

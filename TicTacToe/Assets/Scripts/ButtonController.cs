@@ -48,11 +48,11 @@ public class ButtonController : MonoBehaviour {
     {
         switch (currentPlayer)
         {
-            case Player.PlayerOne:
+            case Player.Human:
                 buttonText.text = "X";
                 occupation = currentPlayer;
                 break;
-            case Player.PlayerTwo:
+            case Player.Robot:
                 buttonText.text = "O";
                 occupation = currentPlayer;
                 break;

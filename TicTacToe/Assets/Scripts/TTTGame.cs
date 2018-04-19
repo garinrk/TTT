@@ -109,7 +109,7 @@ public class TTTGame : MonoBehaviour {
 
     private void EndTurn()
     {
-        //CheckForWin(currentPlayer);
+        CheckForWin(currentPlayer);
 
         if (gameRunning)
         {
@@ -129,6 +129,7 @@ public class TTTGame : MonoBehaviour {
             if(currentPlayer == Player.Robot)
             {
                 Robot();
+                EndTurn();
             }
         }
     
@@ -138,6 +139,7 @@ public class TTTGame : MonoBehaviour {
     {
         currentBoard = GetBoard();
         MiniMax(MakeCopy(currentBoard), Player.Robot);
+        SetChoice(currentChoice);
         Debug.Log("Robot chose : " + currentChoice);
     }
 
@@ -180,14 +182,14 @@ public class TTTGame : MonoBehaviour {
 
     private int MiniMax(Player[] i_board, Player i_player)
     {
-        //Player[] theBoard = GetBoard();
+        Player[] theBoard = MakeCopy(i_board);
 
         //check for terminal state
-        int score = GetScore(i_board, i_player);
+        int score = GetScore(theBoard, Player.Robot);
 
         if (score != 0)
             return score;
-        else if (CheckForGameEnd(i_board))
+        else if (CheckForGameEnd(theBoard))
             return 0;
 
         List<int> scores = new List<int>();
@@ -197,9 +199,9 @@ public class TTTGame : MonoBehaviour {
         for(int i = 0; i < 9; i++)
         {
             //empty space
-            if(i_board[i] == Player.NONE)
+            if(theBoard[i] == Player.NONE)
             {
-                scores.Add(MiniMax(MakeMoveAndReturnCopy(i_board, i_player, i), GetOpponent(i_player)));
+                scores.Add(MiniMax(MakeMoveAndReturnCopy(theBoard, i_player, i), GetOpponent(i_player)));
                 moves.Add(i);
             }
 
@@ -208,16 +210,21 @@ public class TTTGame : MonoBehaviour {
         if(i_player == Player.Robot)
         {
             int maxScoreIndex = scores.IndexOf(scores.Max());
-            int choice = moves[maxScoreIndex];
+            currentChoice = moves[maxScoreIndex];
             return scores.Max();
         }
         else
         {
             int minScoreIndex = scores.IndexOf(scores.Min());
-            int choice = moves[minScoreIndex];
+            currentChoice = moves[minScoreIndex];
             return scores.Min();
         }
 
+    }
+
+    private void SetChoice(int i_selection)
+    {
+        boardController.board[i_selection].SetOccupation(Player.Robot);
     }
 
     #endregion
@@ -226,16 +233,19 @@ public class TTTGame : MonoBehaviour {
     
     public void MakeMove(int i_buttonIndex)
     {
-        ButtonController toControl = boardController.board[i_buttonIndex];
+        if (gameRunning)
+        {
+            ButtonController toControl = boardController.board[i_buttonIndex];
 
-        if (!toControl.isOccupied)
-        {
-            toControl.SetOccupation(currentPlayer);
-            EndTurn();
-        }
-        else
-        {
-            Debug.Log("Square " + i_buttonIndex + " is occupied, invalid move");
+            if (!toControl.isOccupied)
+            {
+                toControl.SetOccupation(currentPlayer);
+                EndTurn();
+            }
+            else
+            {
+                Debug.Log("Square " + i_buttonIndex + " is occupied, invalid move");
+            }
         }
         
 

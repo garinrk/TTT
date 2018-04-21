@@ -10,6 +10,7 @@ public class TTTGame : MonoBehaviour {
 
     [SerializeField] private BoardController boardController;
     [SerializeField] private float robotChoiceDelay = 1.0f;
+    [SerializeField] private int startingDepth = 3;
 
     #endregion
 
@@ -59,29 +60,6 @@ public class TTTGame : MonoBehaviour {
 
     }
 
-    //private bool WinCheck(Player i_player)
-    //{
-    //    ButtonController[] boardCells = boardController.board;
-
-    //    if((boardCells[0].occupation == i_player && boardCells[1].occupation == i_player && boardCells[2].occupation == i_player) ||
-    //        (boardCells[3].occupation == i_player && boardCells[4].occupation == i_player && boardCells[5].occupation == i_player) ||
-    //        (boardCells[6].occupation == i_player && boardCells[7].occupation == i_player && boardCells[8].occupation == i_player) ||
-    //        (boardCells[0].occupation == i_player && boardCells[3].occupation == i_player && boardCells[6].occupation == i_player) ||
-    //        (boardCells[1].occupation == i_player && boardCells[4].occupation == i_player && boardCells[7].occupation == i_player) ||
-    //        (boardCells[2].occupation == i_player && boardCells[5].occupation == i_player && boardCells[8].occupation == i_player) ||
-    //        (boardCells[0].occupation == i_player && boardCells[4].occupation == i_player && boardCells[8].occupation == i_player) ||
-    //        (boardCells[2].occupation == i_player && boardCells[4].occupation == i_player && boardCells[6].occupation == i_player)
-    //        )
-    //    {
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-
-    //}
-
     private bool WinCheckWithBoard(Player[] i_board, Player i_player)
     {
         if ((i_board[0] == i_player && i_board[1] == i_player && i_board[2] == i_player) ||
@@ -101,11 +79,11 @@ public class TTTGame : MonoBehaviour {
         }
     }
 
-    private int GetScore(Player[] i_board, Player i_player)
+    private int GetScore(Player[] i_board, Player i_player, int depth)
     {
 
-        if (WinCheckWithBoard(i_board, i_player)) return 10; //you won
-        else if (WinCheckWithBoard(i_board, GetOpponent(i_player))) return -10; //they won
+        if (WinCheckWithBoard(i_board, i_player)) return 10 + depth; //you won
+        else if (WinCheckWithBoard(i_board, GetOpponent(i_player))) return -10 - depth; //they won
         else return 0; //draw
     }
 
@@ -205,12 +183,18 @@ public class TTTGame : MonoBehaviour {
         return copy;
     }
 
-    private int MiniMax(Player[] i_board, Player i_player)
+    private int MiniMax(Player[] i_board, Player i_player, int i_depth)
     {
+       
         Player[] theBoard = MakeCopy(i_board);
 
+        if (i_depth == 0)
+        {
+            return GetScore(theBoard, Player.Robot, i_depth);
+        }
+
         //check for terminal state
-        int score = GetScore(theBoard, Player.Robot);
+        int score = GetScore(theBoard, Player.Robot, i_depth);
 
         if (score != 0)
             return score;
@@ -226,7 +210,7 @@ public class TTTGame : MonoBehaviour {
             //empty space
             if(theBoard[i] == Player.NONE)
             {
-                scores.Add(MiniMax(MakeMoveAndReturnCopy(theBoard, i_player, i), GetOpponent(i_player)));
+                scores.Add(MiniMax(MakeMoveAndReturnCopy(theBoard, i_player, i), GetOpponent(i_player),i_depth - 1));
                 moves.Add(i);
             }
 
@@ -291,7 +275,7 @@ public class TTTGame : MonoBehaviour {
         yield return new WaitForSecondsRealtime(robotChoiceDelay);
 
         currentBoardState = GetBoard();
-        MiniMax(MakeCopy(currentBoardState), Player.Robot);
+        MiniMax(MakeCopy(currentBoardState), Player.Robot, startingDepth);
         SetRobotChoice(currentRobotChoice);
         EndTurn();
     }

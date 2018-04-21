@@ -12,11 +12,12 @@ public class TTTGame : MonoBehaviour {
     [SerializeField] private float robotChoiceDelay = 1.0f;
     [SerializeField] private int startingDepth = 3;
     [SerializeField] private Dropdown diffDropdown;
+    [SerializeField] private Dropdown firstMoveDropdown;
     #endregion
 
     #region Public Fields
 
-    public Player currentPlayer = Player.NONE;
+    public Player currentPlayer = Player.Human;
 
     #endregion
 
@@ -29,7 +30,8 @@ public class TTTGame : MonoBehaviour {
     private int humanWins = 0;
     private int robotWins = 0;
 
-    private bool hardMode = false;
+    private bool hardMode = true;
+    private bool humanFirst = true;
     #endregion
 
 
@@ -37,16 +39,10 @@ public class TTTGame : MonoBehaviour {
     #region Unity Lifecycle
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
 
         StartGame();
-
-        
-        if (currentPlayer == Player.Robot)
-        {
-            MakeRobotChoiceWithDelay();
-        }
-
     }
 
 
@@ -57,10 +53,22 @@ public class TTTGame : MonoBehaviour {
 
     private void StartGame()
     {
-        hardMode = (diffDropdown.value == 0) ? true : false;
         gameRunning = true;
-        currentPlayer = Player.Human;
+        
+
+        switch(humanFirst)
+        {
+            case true:
+                currentPlayer = Player.Human;
+                break;
+            case false:
+                currentPlayer = Player.Robot;
+                StartCoroutine(MakeRobotChoiceWithDelay());
+                break;
+        }
+
         boardController.SetTurnText(currentPlayer);
+
     }
 
     private bool WinCheckWithBoard(Player[] i_board, Player i_player)
@@ -313,6 +321,13 @@ public class TTTGame : MonoBehaviour {
     public void OnDifficultyChanged()
     {
         hardMode = (diffDropdown.value == 0) ? true : false;
+        ResetGame();
+        ResetScores();
+    }
+
+    public void OnFirstMoveChanged()
+    {
+        humanFirst = (firstMoveDropdown.value == 0) ? true : false;
         ResetGame();
         ResetScores();
     }

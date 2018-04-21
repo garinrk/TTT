@@ -32,6 +32,7 @@ public class TTTGame : MonoBehaviour {
 
     private bool hardMode = true;
     private bool humanFirst = true;
+
     #endregion
 
 

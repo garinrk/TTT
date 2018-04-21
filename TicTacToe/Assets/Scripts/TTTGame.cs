@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -58,28 +59,28 @@ public class TTTGame : MonoBehaviour {
 
     }
 
-    private bool WinCheck(Player i_player)
-    {
-        ButtonController[] boardCells = boardController.board;
+    //private bool WinCheck(Player i_player)
+    //{
+    //    ButtonController[] boardCells = boardController.board;
 
-        if((boardCells[0].occupation == i_player && boardCells[1].occupation == i_player && boardCells[2].occupation == i_player) ||
-            (boardCells[3].occupation == i_player && boardCells[4].occupation == i_player && boardCells[5].occupation == i_player) ||
-            (boardCells[6].occupation == i_player && boardCells[7].occupation == i_player && boardCells[8].occupation == i_player) ||
-            (boardCells[0].occupation == i_player && boardCells[3].occupation == i_player && boardCells[6].occupation == i_player) ||
-            (boardCells[1].occupation == i_player && boardCells[4].occupation == i_player && boardCells[7].occupation == i_player) ||
-            (boardCells[2].occupation == i_player && boardCells[5].occupation == i_player && boardCells[8].occupation == i_player) ||
-            (boardCells[0].occupation == i_player && boardCells[4].occupation == i_player && boardCells[8].occupation == i_player) ||
-            (boardCells[2].occupation == i_player && boardCells[4].occupation == i_player && boardCells[6].occupation == i_player)
-            )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    //    if((boardCells[0].occupation == i_player && boardCells[1].occupation == i_player && boardCells[2].occupation == i_player) ||
+    //        (boardCells[3].occupation == i_player && boardCells[4].occupation == i_player && boardCells[5].occupation == i_player) ||
+    //        (boardCells[6].occupation == i_player && boardCells[7].occupation == i_player && boardCells[8].occupation == i_player) ||
+    //        (boardCells[0].occupation == i_player && boardCells[3].occupation == i_player && boardCells[6].occupation == i_player) ||
+    //        (boardCells[1].occupation == i_player && boardCells[4].occupation == i_player && boardCells[7].occupation == i_player) ||
+    //        (boardCells[2].occupation == i_player && boardCells[5].occupation == i_player && boardCells[8].occupation == i_player) ||
+    //        (boardCells[0].occupation == i_player && boardCells[4].occupation == i_player && boardCells[8].occupation == i_player) ||
+    //        (boardCells[2].occupation == i_player && boardCells[4].occupation == i_player && boardCells[6].occupation == i_player)
+    //        )
+    //    {
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
 
-    }
+    //}
 
     private bool WinCheckWithBoard(Player[] i_board, Player i_player)
     {
@@ -117,6 +118,7 @@ public class TTTGame : MonoBehaviour {
 
     private void EndTurn()
     {
+        CheckForDraw();
         CheckForWin(currentPlayer);
 
         if (gameRunning)
@@ -142,6 +144,16 @@ public class TTTGame : MonoBehaviour {
     
     }
 
+    private void CheckForDraw()
+    {
+
+        if(CheckForGameEnd(GetBoard()))
+        {
+            gameRunning = false;
+            boardController.SetTurnText(Player.NONE);
+        }
+        
+    }
 
     private Player[] MakeCopy(Player[] i_toCopy)
     {
@@ -152,10 +164,10 @@ public class TTTGame : MonoBehaviour {
     }
     private void CheckForWin(Player i_player)
     {
-        if(WinCheck(i_player))
+        if (WinCheckWithBoard(GetBoard(),i_player))
         {
             boardController.SetWinningText(i_player);
-            switch(i_player)
+            switch (i_player)
             {
                 case Player.Human:
                     humanWins++;
@@ -169,7 +181,7 @@ public class TTTGame : MonoBehaviour {
 
             gameRunning = false;
         }
-        
+
     }
 
 

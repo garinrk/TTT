@@ -56,6 +56,11 @@ public class BoardController : MonoBehaviour {
             currentTurnLabel.text = Strings.InterfaceText.ROBOT_TURN;
             currentTurnLabel.color = Color.red;
         }
+        else if(i_currentPlayer == Player.NONE)
+        {
+            currentTurnLabel.text = Strings.InterfaceText.DRAW;
+            currentTurnLabel.color = Color.white;
+        }
     }
 
     public void SetWinningText(Player winner)

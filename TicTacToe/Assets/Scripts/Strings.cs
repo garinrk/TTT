@@ -2,9 +2,9 @@
 {
     public class InterfaceText
     {
-        public static string PLAYER_ONE_TURN = "X's Turn";
-        public static string PLAYER_TWO_TURN = "O's Turn";
-        public static string PLAYER_ONE_WIN = "X WINS!";
-        public static string PLAYER_TWO_WIN = "O WINS!";
+        public static string HUMAN_TURN = "Your Turn!";
+        public static string ROBOT_TURN = "Robot thinking...";
+        public static string HUMAN_WIN = "You won Human!";
+        public static string ROBOT_WIN = "The Robot won!";
     }
 }

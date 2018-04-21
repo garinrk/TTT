@@ -8,6 +8,7 @@ public class TTTGame : MonoBehaviour {
     #region Unity Serialized Fields
 
     [SerializeField] private BoardController boardController;
+    [SerializeField] private float robotChoiceDelay = 1.0f;
 
     #endregion
 
@@ -19,9 +20,12 @@ public class TTTGame : MonoBehaviour {
 
     #region Private Fields
 
-    private bool gameRunning = true;
-    private static int currentChoice = 0;
-    private static Player[] currentBoard = null;
+    private bool gameRunning = false;
+    private static int currentRobotChoice = 0;
+    private static Player[] currentBoardState = null;
+
+    private int humanWins = 0;
+    private int robotWins = 0;
 
     #endregion
 
@@ -31,22 +35,26 @@ public class TTTGame : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        currentPlayer = Player.Human;
-        boardController.SetTurnText(currentPlayer);
-	}
 
-    private void Update()
-    {
+        StartGame();
 
+        if (currentPlayer == Player.Robot)
+        {
+            MakeRobotChoiceWithDelay();
+        }
     }
+
 
     #endregion
 
 
     #region Private Interface
 
-    private void ResetGame()
+    private void StartGame()
     {
+        gameRunning = true;
+        currentPlayer = Player.Human;
+        boardController.SetTurnText(currentPlayer);
 
     }
 
@@ -128,20 +136,12 @@ public class TTTGame : MonoBehaviour {
 
             if(currentPlayer == Player.Robot)
             {
-                Robot();
-                EndTurn();
+                StartCoroutine(MakeRobotChoiceWithDelay());
             }
         }
     
     }
 
-    private void Robot()
-    {
-        currentBoard = GetBoard();
-        MiniMax(MakeCopy(currentBoard), Player.Robot);
-        SetChoice(currentChoice);
-        Debug.Log("Robot chose : " + currentChoice);
-    }
 
     private Player[] MakeCopy(Player[] i_toCopy)
     {
@@ -155,10 +155,23 @@ public class TTTGame : MonoBehaviour {
         if(WinCheck(i_player))
         {
             boardController.SetWinningText(i_player);
+            switch(i_player)
+            {
+                case Player.Human:
+                    humanWins++;
+                    boardController.SetScoreText(Player.Human, humanWins);
+                    break;
+                case Player.Robot:
+                    robotWins++;
+                    boardController.SetScoreText(Player.Robot, robotWins);
+                    break;
+            }
+
             gameRunning = false;
         }
         
     }
+
 
     private bool CheckForGameEnd(Player[] i_board)
     {
@@ -210,30 +223,39 @@ public class TTTGame : MonoBehaviour {
         if(i_player == Player.Robot)
         {
             int maxScoreIndex = scores.IndexOf(scores.Max());
-            currentChoice = moves[maxScoreIndex];
+            currentRobotChoice = moves[maxScoreIndex];
             return scores.Max();
         }
         else
         {
             int minScoreIndex = scores.IndexOf(scores.Min());
-            currentChoice = moves[minScoreIndex];
+            currentRobotChoice = moves[minScoreIndex];
             return scores.Min();
         }
 
     }
 
-    private void SetChoice(int i_selection)
+    private void SetRobotChoice(int i_selection)
     {
         boardController.board[i_selection].SetOccupation(Player.Robot);
     }
 
-    #endregion
-
-    #region Public Interface
-    
-    public void MakeMove(int i_buttonIndex)
+    private Player[] GetBoard()
     {
-        if (gameRunning)
+        ButtonController[] theBoard = boardController.board;
+
+        Player[] result = new Player[9];
+        for (int i = 0; i < 9; i++)
+        {
+            result[i] = theBoard[i].occupation;
+        }
+
+        return result;
+    }
+
+    private void MakeMove(int i_buttonIndex)
+    {
+        if (gameRunning && currentPlayer == Player.Human)
         {
             ButtonController toControl = boardController.board[i_buttonIndex];
 
@@ -247,22 +269,29 @@ public class TTTGame : MonoBehaviour {
                 Debug.Log("Square " + i_buttonIndex + " is occupied, invalid move");
             }
         }
-        
 
-        
+
+
     }
 
-    public Player[] GetBoard()
+    IEnumerator MakeRobotChoiceWithDelay()
     {
-        ButtonController[] theBoard = boardController.board;
+        yield return new WaitForSecondsRealtime(robotChoiceDelay);
 
-        Player[] result = new Player[9];
-        for(int i = 0; i < 9; i++)
-        {
-            result[i] = theBoard[i].occupation;
-        }
+        currentBoardState = GetBoard();
+        MiniMax(MakeCopy(currentBoardState), Player.Robot);
+        SetRobotChoice(currentRobotChoice);
+        EndTurn();
+    }
 
-        return result;
+    #endregion
+
+    #region Public Interface
+
+    public void ResetGame()
+    {
+        boardController.ResetBoard();
+        StartGame();
     }
 
     #endregion

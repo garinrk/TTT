@@ -44,6 +44,12 @@ public class ButtonController : MonoBehaviour {
 
     #region Public Interface
 
+    public void Reset()
+    {
+        buttonText.text = "";
+        occupation = Player.NONE;
+    }
+
     public void SetOccupation(Player currentPlayer)
     {
         switch (currentPlayer)

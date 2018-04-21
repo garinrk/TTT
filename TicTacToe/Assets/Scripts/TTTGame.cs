@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class TTTGame : MonoBehaviour {
 
     #region Unity Serialized Fields
@@ -11,7 +11,7 @@ public class TTTGame : MonoBehaviour {
     [SerializeField] private BoardController boardController;
     [SerializeField] private float robotChoiceDelay = 1.0f;
     [SerializeField] private int startingDepth = 3;
-
+    [SerializeField] private Dropdown diffDropdown;
     #endregion
 
     #region Public Fields
@@ -29,6 +29,7 @@ public class TTTGame : MonoBehaviour {
     private int humanWins = 0;
     private int robotWins = 0;
 
+    private bool hardMode = false;
     #endregion
 
 
@@ -40,10 +41,12 @@ public class TTTGame : MonoBehaviour {
 
         StartGame();
 
+        
         if (currentPlayer == Player.Robot)
         {
             MakeRobotChoiceWithDelay();
         }
+
     }
 
 
@@ -54,10 +57,10 @@ public class TTTGame : MonoBehaviour {
 
     private void StartGame()
     {
+        hardMode = (diffDropdown.value == 0) ? true : false;
         gameRunning = true;
         currentPlayer = Player.Human;
         boardController.SetTurnText(currentPlayer);
-
     }
 
     private bool WinCheckWithBoard(Player[] i_board, Player i_player)
@@ -275,9 +278,26 @@ public class TTTGame : MonoBehaviour {
         yield return new WaitForSecondsRealtime(robotChoiceDelay);
 
         currentBoardState = GetBoard();
-        MiniMax(MakeCopy(currentBoardState), Player.Robot, startingDepth);
+        switch(hardMode)
+        {
+            case true:
+                MiniMax(MakeCopy(currentBoardState), Player.Robot, (int)Difficulty.HARD);
+                break;
+            case false:
+                MiniMax(MakeCopy(currentBoardState), Player.Robot, (int)Difficulty.EASY);
+                break;
+        }
+
         SetRobotChoice(currentRobotChoice);
         EndTurn();
+    }
+    
+    private void ResetScores()
+    {
+        humanWins = 0;
+        robotWins = 0;
+        boardController.SetScoreText(Player.Robot, robotWins);
+        boardController.SetScoreText(Player.Human, humanWins);
     }
 
     #endregion
@@ -288,6 +308,13 @@ public class TTTGame : MonoBehaviour {
     {
         boardController.ResetBoard();
         StartGame();
+    }
+
+    public void OnDifficultyChanged()
+    {
+        hardMode = (diffDropdown.value == 0) ? true : false;
+        ResetGame();
+        ResetScores();
     }
 
     #endregion

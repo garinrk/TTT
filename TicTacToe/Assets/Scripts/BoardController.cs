@@ -11,6 +11,7 @@ public class BoardController : MonoBehaviour {
     [SerializeField] private Text currentTurnLabel;
     [SerializeField] private Text humanScoreLabel;
     [SerializeField] private Text robotScoreLabel;
+    
 
     #endregion
 
@@ -87,6 +88,24 @@ public class BoardController : MonoBehaviour {
         {
             robotScoreLabel.text = i_score.ToString();
         }
+    }
+
+    //public void SetDifficultyLabel(Difficulty i_toSet)
+    //{
+    //    switch(i_toSet)
+    //    {
+    //        case Difficulty.EASY:
+    //            difficultyLabel.text = Strings.InterfaceText.EASY;
+    //            break;
+    //        case Difficulty.HARD:
+    //            difficultyLabel.text = Strings.InterfaceText.HARD;
+    //            break;
+    //    }
+    //}
+
+    public void SetDifficulty()
+    {
+
     }
 
 

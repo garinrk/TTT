@@ -7,5 +7,7 @@
         public static string DRAW = "Draw!";
         public static string HUMAN_WIN = "You won Human!";
         public static string ROBOT_WIN = "The Robot won!";
+        public static string EASY = "Easy";
+        public static string HARD = "Hard";
     }
 }

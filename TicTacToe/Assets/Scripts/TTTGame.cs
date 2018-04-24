@@ -10,7 +10,6 @@ public class TTTGame : MonoBehaviour {
 
     [SerializeField] private BoardController boardController;
     [SerializeField] private float robotChoiceDelay = 1.0f;
-    [SerializeField] private int startingDepth = 3;
     [SerializeField] private Dropdown diffDropdown;
     [SerializeField] private Dropdown firstMoveDropdown;
     #endregion
@@ -42,10 +41,16 @@ public class TTTGame : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-
         StartGame();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 
     #endregion
 
